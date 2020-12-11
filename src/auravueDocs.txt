@@ -1,0 +1,3 @@
+
+1. npx create-react-app auravue-web
+2. npm i react-router-dom redux react-redux redux-thunk axios --save
