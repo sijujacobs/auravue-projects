@@ -1,3 +1,12 @@
 
 1. npx create-react-app auravue-web
 2. npm i react-router-dom redux react-redux redux-thunk axios --save
+
+
+npm install -g firebase-tools
+firebase login
+firebase init
+firebase use --add
+firebase deploy
+
+npm i firebase
