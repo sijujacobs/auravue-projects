@@ -1,15 +1,30 @@
 import axios from "axios";
+
+import {auth} from '../../firebase';
 const BASE_URL = "http://auravue.com/api/";
 
-function login() {
-  return axios.post('/user', {
-    userName: 'siju',
-    password: '123'
-  }).then(function (response) {
-    console.log(response);
-  }).catch(function (error) {
-    console.log(error);
-  });
+// async function getUser(){
+//   const userData = await {
+//     firstName:"Name1",
+//     lastName:"LastName1",
+//     emailName:"email1@email.com",
+//     message:"SUCCESSFULLY AUTHENTICATED"
+//   };
+//   return userData;
+// }
+
+function login(userData) {
+  console.log('login :: userData : ', userData);
+  // return getUser();
+  return auth.createUserWithEmailAndPassword(userData.email, userData.password);
+  // return axios.post('/user', {
+  //   userName: 'siju',
+  //   password: '123'
+  // }).then(function (response) {
+  //   console.log(response);
+  // }).catch(function (error) {
+  //   console.log(error);
+  // });
 }
 
 function getProducts() {

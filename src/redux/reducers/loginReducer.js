@@ -1,12 +1,10 @@
 import { loginConstants } from "../constants";
 
 const initialState = {
-  user: {},
-  loggedIn: false,
-  error: {},
+  currentUser: {},
+  loading: false,
+  error: "",
 };
-
-// const initialState = user ? { loggedIn: true, user } : {};
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -17,21 +15,22 @@ const loginReducer = (state = initialState, action) => {
         error: null,
       };
     case loginConstants.LOGIN_SUCCESS:
+      console.log(' LoginReducer :: LOGIN_SUCCESS :action : ', action);
       return {
         ...state,
         loading: false,
-        user: action.payload.data,
+        currentUser: action.payload.data,
       };
     case loginConstants.LOGIN_FAILURE:
       console.log(
-        " FETCH_SUBREDDIT_FAILURE :: payload : ",
-        action.payload.error
+        "-----LoginReducer :: LOGIN_FAILURE :: action.payload: ",
+        action.payload.error.message
       );
       return {
         ...state,
         loading: false,
         error: action.payload.error.message,
-        user: {},
+        currentUser: {},
       };
     default: {
       return state;

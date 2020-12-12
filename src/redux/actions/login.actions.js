@@ -17,13 +17,12 @@ const loginFailure = (error) => ({
 
 
 
-const login = () => {
+const login = (data) => {
   return (dispatch) => {
     dispatch(loginBegin());
-    loginService.login().then(
-      (data) => {
-        console.log(' loginAction :: loginSerive:: data : ', data);
-        dispatch(loginSuccess(data));
+    loginService.login(data).then(
+      (resData) => {
+        dispatch(loginSuccess(resData));
       },
       (error) => dispatch(loginFailure(error))
     );

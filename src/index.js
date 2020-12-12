@@ -6,8 +6,8 @@ import store from "./redux/store/index";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <Provider store={store}>
-<App />
+<Provider store={store}>
+  <App />
 </Provider>,
   document.getElementById('root')
 );

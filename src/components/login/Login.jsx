@@ -79,6 +79,15 @@ const mapStateToProps = (state) => {
   return { loggedIn };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (d) => dispatch(loginActions.login(d)),
+  };
+};
+
+const connectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connectedLogin;
+
 // const mapStateToProps = (state) => {
 //     return {
 //       postsData: state.postReducer.postsData,
@@ -88,16 +97,6 @@ const mapStateToProps = (state) => {
 // const actionCreators = {
 //   login: loginActions.login,
 // };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (d) => dispatch(loginActions.login(d)),
-  };
-};
-
-const connectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
-
-export default connectedLogin;
 
 // const mapStateToProps = (state) => {
 //     return {
