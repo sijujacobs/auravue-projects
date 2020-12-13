@@ -1,6 +1,9 @@
-// import Login from './components/login/Login'
+
 import React from "react";
 import SignUp from './components/auth/SignUp';
+import Login from './components/auth/Login';
+import UserProfile from './components/auth/UserProfile';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import { Container } from "react-bootstrap";
 const App = () => {
@@ -9,9 +12,14 @@ const App = () => {
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
       >
-         <div className="w-100" style={{ maxWidth: "400px" }}>
-        <SignUp/>
-      </div>
+           <BrowserRouter>
+            <Switch>
+              <Route exact path="/" component={UserProfile}/>
+              <Route path="/signUp" component={SignUp}/>
+              <Route path="/login" component={Login} />
+            </Switch>
+           </BrowserRouter>
+       
      </Container>
   );
 }

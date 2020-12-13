@@ -1,19 +1,23 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-
 import { authActions } from "../../redux/actions";
 
-const SignUp = (props) => {
+const Login = (props) => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const passwordConRef = useRef();
   const history = useHistory();
-  const { signUp } = props;
+
+  const { login, loggedIn } = props;
   const [error, setError] = useState("");
   const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    if (loggedIn) {
+      history.push("/");
+    }
+  }, [history, loggedIn]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,12 +28,11 @@ const SignUp = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (passwordRef.current.value !== passwordConRef.current.value) {
-      return setError("Passwords do not match, Please try again.");
-    } else {
+    if (emailRef.current.value !== "" && passwordRef.current.value !== "") {
       setError("");
-      signUp(currentUser);
-      history.push("/login");
+      login(currentUser);
+    } else {
+      return setError("Passwords do not match, Please try again.");
     }
   };
   return (
@@ -44,7 +47,7 @@ const SignUp = (props) => {
       </div>
       <Card>
         <Card.Body>
-          <h2 className="text-center">Sign Up</h2>
+          <h2 className="text-center">Login</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
@@ -66,16 +69,13 @@ const SignUp = (props) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group id="passwordConfirmation">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control type="password" ref={passwordConRef} required />
-            </Form.Group>
-            <Button type="submit">Sign Up</Button>
+
+            <Button type="submit">Login</Button>
           </Form>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Already have an Account ? <Link to="/login">Log In</Link>
+        Need an account ? <Link to="/signUp">Sign Up</Link>
       </div>
     </div>
   );
@@ -85,14 +85,15 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.authReducer.currentUser,
     error: state.authReducer.error,
+    loggedIn: state.authReducer.loggedIn,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signUp: (d) => dispatch(authActions.signUp(d)),
+    login: (d) => dispatch(authActions.login(d)),
   };
 };
 
-const connectedSignUp = connect(mapStateToProps, mapDispatchToProps)(SignUp);
-export default connectedSignUp;
+const connectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connectedLogin;
